@@ -1,4 +1,4 @@
-const baseUrl="https://coherent-sassy-flute.glitch.me/books";
+const baseUrl="https://coherent-sassy-flute.glitch.me/books/";
 
 
 function getLoginData() {
@@ -99,19 +99,23 @@ if (window.location.pathname.includes("admin.html")) {
 
         // Handle book actions
         booksGrid.addEventListener("click", (event) => {
-            const id = event.target.dataset.id;
+            const bookid = event.target.dataset.id;
 
             if (event.target.classList.contains("verify-btn")) {
                 if (confirm("Are you sure to Verify..?")) {
-                    fetch(`${baseUrl}${id}`, {
+                    fetch(`${baseUrl}${bookid}`, {
                         method: "PATCH",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ isVerified: true }),
-                    }).then(() => loadBooks());
+                    }).then(() => 
+                        {alert("Book Verified Successfully.");
+                            loadBooks()});
                 }
             } else if (event.target.classList.contains("delete-btn")) {
                 if (confirm("Are you sure to Delete..?")) {
-                    fetch(`${baseUrl}${id}`, { method: "DELETE" }).then(() => loadBooks());
+                    fetch(`${baseUrl}${bookid}`, { method: "DELETE" }).then(() => {
+                        alert("Book Deleted Successfully.");
+                        loadBooks()});
                 }
             }
         });
